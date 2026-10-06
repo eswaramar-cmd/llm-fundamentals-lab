@@ -12,8 +12,6 @@ langchain-ollama==1.1.0
 langchain-chroma==1.1.0
 langchain-text-splitters==1.1.2
 chromadb==1.5.9
-sentence-transformers==6.0.0
-torch>=2.0.0
 httpx==0.28.1
 requests==2.34.2
 python-dotenv>=1.0.0

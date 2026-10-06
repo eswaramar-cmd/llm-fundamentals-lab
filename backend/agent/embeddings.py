@@ -31,6 +31,24 @@ def get_embeddings() -> Embeddings:
     """
     settings = get_settings()
 
+    if settings.embedding_provider in {"google", "gemini"}:
+        import os
+        from langchain_google_genai import GoogleGenerativeAIEmbeddings
+
+        key = os.environ.get("GOOGLE_API_KEY", "")
+        model = settings.embedding_model or "models/text-embedding-004"
+        if not model.startswith("models/"):
+            model = f"models/{model}"
+        logger.info("Using Google GenAI embeddings: %s", model)
+        return GoogleGenerativeAIEmbeddings(model=model, google_api_key=key or None)
+
+    if settings.embedding_provider == "openai":
+        from langchain_openai import OpenAIEmbeddings
+
+        model = settings.embedding_model or "text-embedding-3-small"
+        logger.info("Using OpenAI embeddings: %s", model)
+        return OpenAIEmbeddings(model=model)
+
     if settings.embedding_provider == "huggingface":
         from langchain_huggingface import HuggingFaceEmbeddings
 
@@ -45,3 +63,4 @@ def get_embeddings() -> Embeddings:
         model=settings.embedding_model,
         base_url=settings.ollama_base_url,
     )
+
