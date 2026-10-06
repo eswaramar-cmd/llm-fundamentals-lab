@@ -885,6 +885,11 @@ async def chat_stream(
                     await queue.put(_STREAM_DONE)
 
             producer = asyncio.create_task(pump())
+            yield _sse({
+                "type": "status",
+                "message": "Connected",
+                "node": "__start__",
+            })
 
             try:
                 while True:
