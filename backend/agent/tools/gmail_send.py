@@ -291,15 +291,18 @@ def _smtp_send(
 
     deadline = time.monotonic() + settings.gmail_timeout_seconds
 
-    with smtplib.SMTP(
-        settings.gmail_smtp_host,
-        settings.gmail_smtp_port,
-        timeout=settings.gmail_timeout_seconds,
-    ) as smtp:
-        smtp.ehlo()
-        # Port 587 is submission: STARTTLS upgrades the connection before the
-        # password crosses the wire. Credentials must never go out in the clear.
-        smtp.starttls()
+    port = int(settings.gmail_smtp_port or 587)
+    host = settings.gmail_smtp_host or "smtp.gmail.com"
+
+    if port == 465:
+        smtp_client = smtplib.SMTP_SSL(host, port, timeout=settings.gmail_timeout_seconds)
+    else:
+        smtp_client = smtplib.SMTP(host, port, timeout=settings.gmail_timeout_seconds)
+
+    with smtp_client as smtp:
+        if port != 465:
+            smtp.ehlo()
+            smtp.starttls()
         smtp.ehlo()
         smtp.login(sender, app_password)
 

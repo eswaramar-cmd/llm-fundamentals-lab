@@ -19,9 +19,11 @@ logger = logging.getLogger(__name__)
 # Both an explicit send verb and a recipient are required. Matching a bare "send"
 # would capture "send me the retrieval pipeline", which is a document question.
 _EMAIL_PATTERNS = [
+    r"\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b",
     r"\b(?:send|email|e-mail|mail|messag\w*)\b[^.?]*@\w+\.\w+",
     r"\b(?:send|email|e-mail)\b[^.?]*\b(?:to|@)\b",
     r"\b(?:draft|compose|write)\b[^.?]*\b(?:email|e-mail|mail|message)\b",
+    r"\b(?:send\s+(?:the\s+)?(?:email|mail|message))\b",
 ]
 
 # The send flow is two turns: the first asks for a preview, the second approves
