@@ -12,22 +12,19 @@ RUN pip install --no-cache-dir torch==2.13.0 \
     --index-url https://download.pytorch.org/whl/cpu
 
 # Install Python dependencies
-COPY backend/requirements.txt .
+COPY backend/requirements.txt ./backend/requirements.txt
+RUN pip install --no-cache-dir -r backend/requirements.txt
 
-RUN pip install --no-cache-dir -r requirements.txt
-
-# Copy agent
-COPY agent/ ./agent/
-
-# Copy FastAPI application
-COPY backend/main.py ./main.py
+# Copy backend code
+COPY backend/ ./backend/
 
 # Persistent directories
-RUN mkdir -p /chroma_rag /chroma_memory /documents
+RUN mkdir -p /app/chroma_rag /app/chroma_memory /app/documents
 
 # Ensure Python output is unbuffered for Docker logs
 ENV PYTHONUNBUFFERED=1
+ENV PYTHONPATH=/app
 
 EXPOSE 8000
 
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["sh", "-c", "uvicorn backend.main:app --host 0.0.0.0 --port ${PORT:-8000}"]
