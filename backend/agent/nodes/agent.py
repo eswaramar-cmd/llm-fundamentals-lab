@@ -265,7 +265,7 @@ async def agent_node(state: AgentState) -> AgentState:
             response, streamed_chars = await _astream_with_timeout(
                 model,
                 full_messages,
-                settings.tool_timeout_seconds,
+                max(settings.tool_timeout_seconds, 35),
                 attempt_partial,
             )
             metrics.record_llm(settings.llm_model, time.monotonic() - start)
