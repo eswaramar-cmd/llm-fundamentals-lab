@@ -589,9 +589,14 @@ def resolve_attachments(
         # The sidecar shares the id, so drop it before looking for the payload.
         payload = [p for p in matches if not p.name.endswith(".meta.json")]
 
+        # Fallback: search across all user directories under uploads_root
+        if not payload:
+            all_matches = sorted(uploads_root().glob(f"*/{candidate}.*"))
+            payload = [p for p in all_matches if not p.name.endswith(".meta.json")]
+
         if len(payload) != 1:
             raise UploadError(
-                f"Attachment {candidate} was not found for this user."
+                f"Attachment {candidate} was not found on the server (it may have expired after a server restart). Please re-upload or re-attach your file in the chat before sending."
             )
 
         path = payload[0]

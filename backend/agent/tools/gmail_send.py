@@ -397,7 +397,10 @@ def _send_email(
 
         # Resolved before the confirmation gate so an unknown or foreign file_id
         # fails while nothing has been sent, rather than after approval.
-        attachments = resolve_attachments(user_id, list(file_ids or []))
+        try:
+            attachments = resolve_attachments(user_id, list(file_ids or []))
+        except Exception as exc:
+            raise ToolException(str(exc)) from exc
 
         sender, app_password, from_name = _require_credentials()
 
