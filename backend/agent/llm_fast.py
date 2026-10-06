@@ -101,9 +101,14 @@ def _float(name: str, default: float) -> float:
 
 
 def get_primary_spec() -> ProviderSpec:
+    model = os.getenv("GROQ_MODEL", "").strip()
+    # Auto-sanitize invalid/deprecated model names to high-speed LPU model
+    if not model or model.startswith("openai/") or "gpt" in model.lower():
+        model = "llama-3.3-70b-versatile"
+
     return ProviderSpec(
         name="groq",
-        model=os.getenv("GROQ_MODEL", "").strip() or DEFAULT_PRIMARY_MODEL,
+        model=model,
         api_key=_key("GROQ_API_KEY"),
         temperature=_float("GROQ_TEMPERATURE", DEFAULT_TEMPERATURE),
         max_tokens=_num("GROQ_MAX_TOKENS", DEFAULT_MAX_TOKENS),
