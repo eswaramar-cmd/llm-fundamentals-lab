@@ -1,0 +1,106 @@
+/*
+ * Design tokens.
+ *
+ * Every colour, radius, and step in the UI resolves to a variable here, so a
+ * retheme is a change to this file rather than a search across components.
+ * Both themes define the same names, which is what lets components stay
+ * theme-agnostic.
+ */
+
+:root {
+  /* Type */
+  --font-sans: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto,
+    'Helvetica Neue', Arial, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas,
+    'Liberation Mono', monospace;
+
+  --text-xs: 0.75rem;
+  --text-sm: 0.8125rem;
+  --text-base: 0.9375rem;
+  --text-lg: 1.0625rem;
+  --text-xl: 1.375rem;
+
+  /* Space scale */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+
+  /* Radii */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-full: 999px;
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --duration-fast: 120ms;
+  --duration-base: 200ms;
+
+  /* Layout */
+  --header-height: 3.5rem;
+  --content-max-width: 56rem;
+}
+
+:root,
+:root[data-theme='dark'] {
+  color-scheme: dark;
+
+  --bg-canvas: #0b0d12;
+  --bg-surface: #12151d;
+  --bg-raised: #181c26;
+  --bg-inset: #0e1118;
+  --bg-hover: #1e2330;
+
+  --border-subtle: #222836;
+  --border-strong: #303748;
+
+  --text-primary: #e8ecf4;
+  --text-secondary: #a3adc2;
+  --text-muted: #6b7488;
+
+  --accent: #6ea8fe;
+  --accent-strong: #8fc0ff;
+  --accent-contrast: #06152c;
+  --accent-soft: rgba(110, 168, 254, 0.14);
+
+  --success: #4ade80;
+  --warning: #fbbf24;
+  --danger: #f87171;
+  --danger-soft: rgba(248, 113, 113, 0.14);
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.45);
+}
+
+:root[data-theme='light'] {
+  color-scheme: light;
+
+  --bg-canvas: #f7f8fa;
+  --bg-surface: #ffffff;
+  --bg-raised: #ffffff;
+  --bg-inset: #f1f3f7;
+  --bg-hover: #eef1f6;
+
+  --border-subtle: #e3e7ee;
+  --border-strong: #cdd4e0;
+
+  --text-primary: #131722;
+  --text-secondary: #4d5666;
+  --text-muted: #7b8496;
+
+  --accent: #2563eb;
+  --accent-strong: #1d4ed8;
+  --accent-contrast: #ffffff;
+  --accent-soft: rgba(37, 99, 235, 0.1);
+
+  --success: #16a34a;
+  --warning: #b45309;
+  --danger: #dc2626;
+  --danger-soft: rgba(220, 38, 38, 0.1);
+
+  --shadow-sm: 0 1px 2px rgba(16, 24, 40, 0.06);
+  --shadow-md: 0 10px 28px rgba(16, 24, 40, 0.1);
+}

@@ -1,0 +1,630 @@
+.panel {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: var(--content-max-width);
+  min-height: 0;
+}
+
+.scroll {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: var(--space-5) var(--space-5) var(--space-3);
+}
+
+.messageStack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+/* ---------------------------------------------------------------- messages */
+
+.message {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  max-width: 85%;
+}
+
+.user {
+  align-self: flex-end;
+  align-items: flex-end;
+}
+
+.assistant {
+  align-self: flex-start;
+  width: 100%;
+}
+
+.messageMeta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+}
+
+.messageRole {
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.messageTime {
+  font-family: var(--font-mono);
+}
+
+.userText {
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-lg);
+  border-end-end-radius: var(--radius-sm);
+  background: var(--accent-soft);
+  border: 1px solid transparent;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.assistantBody {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  border-end-start-radius: var(--radius-sm);
+  background: var(--bg-surface);
+  box-shadow: var(--shadow-sm);
+}
+
+
+.waiting {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+}
+
+/* ------------------------------------------------------------------- tools */
+
+.toolTimeline {
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  background: var(--bg-inset);
+  overflow: hidden;
+}
+
+.toolHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.toolHeaderTitle {
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+.toolList {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.toolItem + .toolItem {
+  border-top: 1px solid var(--border-subtle);
+}
+
+.toolDetails > summary {
+  list-style: none;
+  cursor: pointer;
+}
+
+.toolDetails > summary::-webkit-details-marker {
+  display: none;
+}
+
+.toolSummary {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-2) var(--space-3);
+  font-size: var(--text-sm);
+}
+
+.toolSummary:hover {
+  background: var(--bg-hover);
+}
+
+.toolTime {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  min-width: 4.5rem;
+}
+
+.toolName {
+  flex: 1;
+  font-family: var(--font-mono);
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.toolBody {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-3);
+  border-top: 1px solid var(--border-subtle);
+}
+
+.toolSection {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.toolLabel {
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.toolPre {
+  margin: 0;
+  padding: var(--space-2);
+  border-radius: var(--radius-sm);
+  background: var(--bg-canvas);
+  border: 1px solid var(--border-subtle);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  line-height: 1.5;
+  max-height: 16rem;
+  overflow: auto;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+/* ------------------------------------------------------------------ footer */
+
+.footer {
+  flex: none;
+  border-top: 1px solid var(--border-subtle);
+  background: var(--bg-surface);
+}
+
+.metrics {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-2) var(--space-5);
+  border-bottom: 1px solid var(--border-subtle);
+  font-size: var(--text-xs);
+}
+
+.metric {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--text-secondary);
+}
+
+.metricItem {
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--space-2);
+  min-width: 0;
+}
+
+.metricLabel {
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.metricValue {
+  font-family: var(--font-mono);
+  color: var(--text-primary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 14rem;
+}
+
+.composer {
+  padding: var(--space-3) var(--space-5) var(--space-4);
+}
+
+.statusLine {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding-bottom: var(--space-2);
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+}
+
+.composerRow {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--space-3);
+}
+
+.textarea {
+  flex: 1;
+  min-height: 2.75rem;
+  max-height: 12.5rem;
+  padding: var(--space-3);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  background: var(--bg-inset);
+  color: var(--text-primary);
+  resize: none;
+  overflow-y: auto;
+  transition: border-color var(--duration-fast) var(--ease-out);
+}
+
+.textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.textarea::placeholder {
+  color: var(--text-muted);
+}
+
+/* ------------------------------------------------------------------- email */
+
+.emailDock {
+  flex: none;
+  padding: 0 var(--space-5);
+  margin-bottom: var(--space-3);
+}
+
+.emailPreview,
+.emailSent {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  max-width: var(--content-max-width);
+  margin: 0 auto;
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-lg);
+  font-size: var(--text-sm);
+}
+
+.emailPreview {
+  border: 1px solid var(--warning);
+  background: rgba(251, 191, 36, 0.1);
+}
+
+.emailSent {
+  flex-direction: row;
+  align-items: flex-start;
+  gap: var(--space-3);
+  border: 1px solid var(--success);
+  background: rgba(74, 222, 128, 0.12);
+}
+
+.emailHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.emailHeaderText {
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.emailSentBody {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  min-width: 0;
+}
+
+.emailFields {
+  display: grid;
+  grid-template-columns: 4.5rem 1fr;
+  gap: var(--space-2) var(--space-3);
+  margin: 0;
+}
+
+.emailFields dt {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  padding-top: 0.1rem;
+}
+
+.emailFields dd {
+  margin: 0;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.emailFields dd em {
+  color: var(--danger);
+  font-style: normal;
+}
+
+.emailBody,
+.emailDetail {
+  margin: 0;
+  padding: var(--space-2);
+  border-radius: var(--radius-sm);
+  background: var(--bg-inset);
+  border: 1px solid var(--border-subtle);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  line-height: 1.5;
+  max-height: 14rem;
+  overflow: auto;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.emailDetail {
+  color: var(--text-secondary);
+  max-height: 5rem;
+}
+
+.emailActions {
+  display: flex;
+  gap: var(--space-2);
+}
+
+/* ------------------------------------------------------------------ banner */
+
+.banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  margin: var(--space-4) var(--space-5) 0;
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--danger);
+  border-radius: var(--radius-md);
+  background: var(--danger-soft);
+}
+
+.bannerBody {
+  min-width: 0;
+}
+
+.bannerTitle {
+  display: block;
+  font-size: var(--text-sm);
+  color: var(--danger);
+}
+
+.bannerText {
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  overflow-wrap: anywhere;
+}
+
+.bannerActions {
+  display: flex;
+  flex: none;
+  gap: var(--space-2);
+}
+
+/* -------------------------------------------------------------- empty state */
+
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  min-height: 100%;
+  padding: var(--space-6) var(--space-4);
+  text-align: center;
+}
+
+.emptyTitle {
+  font-size: var(--text-xl);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.emptyBody {
+  max-width: 34rem;
+  color: var(--text-secondary);
+}
+
+.suggestions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-2);
+  margin: var(--space-2) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.suggestion {
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-full);
+  background: var(--bg-surface);
+  color: var(--text-secondary);
+  font-size: var(--text-sm);
+  cursor: pointer;
+  transition:
+    background-color var(--duration-fast) var(--ease-out),
+    color var(--duration-fast) var(--ease-out),
+    border-color var(--duration-fast) var(--ease-out);
+}
+
+.suggestion:hover,
+.suggestionActive {
+  background: var(--accent-soft);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+@media (max-width: 640px) {
+  .scroll,
+  .composer,
+  .metrics {
+    padding-left: var(--space-3);
+    padding-right: var(--space-3);
+  }
+
+  .message {
+    max-width: 100%;
+  }
+
+  .banner {
+    flex-direction: column;
+    align-items: stretch;
+    margin-left: var(--space-3);
+    margin-right: var(--space-3);
+  }
+}
+/* ---------------- Attachment bar ---------------- */
+
+.attachmentBar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  border-top: 1px solid var(--border);
+  background: var(--surface-2);
+}
+
+.fileInput {
+  display: none;
+}
+
+.attachButton {
+  border: 1px dashed var(--border-strong);
+  background: transparent;
+  color: var(--text-muted);
+  border-radius: 6px;
+  padding: 4px 10px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.attachButton:hover:not(:disabled) {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.attachButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.attachmentCount {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.attachmentList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  flex-basis: 100%;
+}
+
+.attachmentChip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  max-width: 260px;
+  padding: 3px 6px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--surface);
+  font-size: 12px;
+}
+
+/* Colour identifies the type at a glance without an icon font. */
+.typeBadge {
+  flex: 0 0 auto;
+  min-width: 30px;
+  height: 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 3px;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  color: #fff;
+  background: #6b7280;
+  overflow: hidden;
+}
+
+.typeBadge[data-category='pdf'] { background: #d93025; }
+.typeBadge[data-category='word'] { background: #185abd; }
+.typeBadge[data-category='excel'] { background: #1d6f42; }
+.typeBadge[data-category='powerpoint'] { background: #d24726; }
+.typeBadge[data-category='image'] { background: #7c3aed; }
+
+.typeThumb {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.attachmentName {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 130px;
+}
+
+.attachmentSize {
+  color: var(--text-muted);
+  font-size: 11px;
+  white-space: nowrap;
+}
+
+.attachmentRemove {
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  font-size: 15px;
+  line-height: 1;
+  padding: 0 2px;
+}
+
+.attachmentRemove:hover {
+  color: #d93025;
+}
+
+.attachmentError {
+  flex-basis: 100%;
+  font-size: 11px;
+  color: #d93025;
+}

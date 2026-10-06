@@ -1,0 +1,129 @@
+services:
+  # -------------------------------------------------------
+  # Redis — shared checkpoint state, rate limiting,
+  # distributed session storage.
+  # -------------------------------------------------------
+  redis:
+    image: redis:7-alpine
+    container_name: redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    command: redis-server --maxmemory 256mb --maxmemory-policy allkeys-lru
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+
+  # -------------------------------------------------------
+  # API — FastAPI application (stateless, scalable).
+  # Each replica shares Redis checkpoints and shared volumes.
+  # -------------------------------------------------------
+  api:
+    build:
+      context: ..
+      dockerfile: backend/Dockerfile
+
+    image: ai-research-agent:latest
+
+    # Remove fixed container_name so multiple replicas can run:
+    #   docker compose up --scale api=3
+    # creates api-1, api-2, api-3
+
+    ports: []
+
+    volumes:
+      # RAG knowledge base (shared across replicas via host volume)
+      - ../chroma_rag:/chroma_rag
+
+      # Long-term memory (shared across replicas)
+      - ../chroma_memory:/chroma_memory
+
+      # Documents
+      - ../documents:/documents
+
+    environment:
+      # Ollama running on Windows host (development LLM)
+      - OLLAMA_BASE_URL=http://host.docker.internal:11434
+      - OLLAMA_MODEL=llama3.2:3b
+      - LLM_PROVIDER=ollama
+      - LLM_BASE_URL=http://host.docker.internal:11434
+      - LLM_MODEL=llama3.2:3b
+
+      # Embeddings
+      - EMBEDDING_MODEL=nomic-embed-text
+      - EMBEDDING_PROVIDER=ollama
+
+      # Vector store
+      - VECTOR_STORE_PROVIDER=chroma_local
+      - CHROMA_RAG_PATH=/chroma_rag
+      - CHROMA_MEMORY_PATH=/chroma_memory
+
+      # Documents
+      - DOCUMENTS_PATH=/documents
+
+      # Redis — shared checkpoint store
+      - REDIS_URL=redis://redis:6379/0
+
+      # Agent settings
+      - MAX_RETRIES=3
+      - TOOL_TIMEOUT_SECONDS=30
+      - MAX_TOOL_ITERATIONS=5
+      - RETRY_BACKOFF=2.0
+
+      # Rate limiting (Redis-backed, distributed)
+      - RATE_LIMIT_ENABLED=true
+      - RATE_LIMIT_REQUESTS=60
+      - RATE_LIMIT_WINDOW_SECONDS=60
+
+      # CORS
+      - CORS_ORIGINS=http://localhost:3000,http://localhost,http://localhost:8080
+
+      # Logging
+      - LOG_LEVEL=INFO
+
+      # Metrics
+      - METRICS_ENABLED=true
+
+    depends_on:
+      redis:
+        condition: service_healthy
+
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+    restart: unless-stopped
+
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "python",
+          "-c",
+          "import urllib.request,sys; r=urllib.request.urlopen('http://localhost:8000/health/ready', timeout=5); sys.exit(0 if r.status==200 else 1)"
+        ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 90s
+
+  # -------------------------------------------------------
+  # Nginx — load balancer / reverse proxy.
+  # Supports SSE streaming, forwarded headers, timeouts.
+  # -------------------------------------------------------
+  nginx:
+    image: nginx:alpine
+    container_name: nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - api
+    restart: unless-stopped
+
+volumes:
+  redis_data:

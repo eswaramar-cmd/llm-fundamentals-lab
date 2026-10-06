@@ -1,0 +1,244 @@
+/* MarkdownRenderer.module.css
+ * Clean ChatGPT-inspired typography, tables, and code blocks.
+ */
+
+.root {
+  font-size: var(--text-base);
+  line-height: 1.68;
+  color: var(--text-primary);
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.root > *:first-child { margin-top: 0; }
+.root > *:last-child  { margin-bottom: 0; }
+
+/* ---------------------------------------------------------------- Headings */
+
+.h1 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin: 1.25em 0 0.5em;
+  color: var(--text-primary);
+  letter-spacing: -0.015em;
+}
+
+.h2 {
+  font-size: 1.125rem;
+  font-weight: 650;
+  margin: 1.15em 0 0.4em;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+}
+
+.h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0.95em 0 0.3em;
+  color: var(--text-primary);
+}
+
+.h4 {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  margin: 0.8em 0 0.25em;
+  color: var(--text-secondary);
+}
+
+/* -------------------------------------------------------------- Paragraphs */
+
+.p {
+  margin: 0.65em 0;
+}
+
+/* ------------------------------------------------------------------ Lists */
+
+.ul,
+.ol {
+  margin: 0.6em 0;
+  padding-left: 1.4em;
+}
+
+.ul { list-style-type: disc; }
+.ol { list-style-type: decimal; }
+
+.li {
+  margin: 0.3em 0;
+}
+
+.li::marker {
+  color: var(--accent);
+}
+
+.li > .ul,
+.li > .ol {
+  margin: 0.25em 0;
+}
+
+/* --------------------------------------------------------------- Code & Pre */
+
+.inlineCode {
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+  padding: 0.15em 0.45em;
+  border-radius: 4px;
+  background: var(--bg-inset);
+  border: 1px solid var(--border-subtle);
+  color: var(--accent-strong);
+  white-space: break-spaces;
+}
+
+.codeBlockContainer {
+  margin: 0.9em 0;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-subtle);
+  overflow: hidden;
+  background: var(--bg-inset);
+  box-shadow: var(--shadow-sm);
+}
+
+.codeBlockHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.35rem 0.85rem;
+  background: var(--bg-canvas);
+  border-bottom: 1px solid var(--border-subtle);
+  font-size: var(--text-xs);
+}
+
+.codeLang {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+}
+
+.copyButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--text-muted);
+  font-size: var(--text-xs);
+  cursor: pointer;
+  transition: all var(--duration-fast) var(--ease-out);
+}
+
+.copyButton:hover {
+  background: var(--bg-hover);
+  color: var(--text-primary);
+  border-color: var(--border-subtle);
+}
+
+.copyIcon {
+  width: 13px;
+  height: 13px;
+}
+
+.pre {
+  margin: 0;
+  padding: 0.9rem 1rem;
+  overflow-x: auto;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: var(--text-primary);
+  background: transparent;
+}
+
+/* ------------------------------------------------------------- Blockquotes */
+
+.blockquote {
+  margin: 0.75em 0;
+  padding: 0.6em 1em;
+  border-left: 3px solid var(--accent);
+  background: var(--accent-soft);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  color: var(--text-secondary);
+}
+
+.blockquote > .p {
+  margin: 0;
+}
+
+/* ----------------------------------------------------------------- Tables */
+
+.tableWrapper {
+  overflow-x: auto;
+  margin: 0.9em 0;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-subtle);
+  background: var(--bg-surface);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--text-sm);
+  text-align: left;
+}
+
+.thead {
+  background: var(--bg-canvas);
+}
+
+.th {
+  padding: 0.6rem 0.9rem;
+  font-weight: 600;
+  font-size: var(--text-xs);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  border-bottom: 1px solid var(--border-subtle);
+  white-space: nowrap;
+}
+
+.td {
+  padding: 0.55rem 0.9rem;
+  border-bottom: 1px solid var(--border-subtle);
+  vertical-align: top;
+}
+
+.tr:nth-child(even) {
+  background: var(--bg-inset);
+}
+
+.tr:last-child > .td {
+  border-bottom: none;
+}
+
+/* ------------------------------------------------------------------ Misc */
+
+.hr {
+  border: none;
+  border-top: 1px solid var(--border-subtle);
+  margin: 1.25em 0;
+}
+
+.link {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: var(--border-strong);
+  transition: all var(--duration-fast) var(--ease-out);
+}
+
+.link:hover {
+  color: var(--accent-strong);
+  text-decoration-color: var(--accent-strong);
+}
+
+.strong {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.em {
+  font-style: italic;
+  color: var(--text-secondary);
+}

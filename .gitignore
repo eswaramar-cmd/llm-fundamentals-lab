@@ -1,0 +1,32 @@
+# Secrets: never commit. .env holds live LLM API keys.
+.env
+.env.*
+!.env.example
+
+# Local vector stores and model caches
+chroma_rag/
+chroma_memory/
+*.sqlite3
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Node
+node_modules/
+
+# Editors / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+# User-uploaded files
+uploads/
